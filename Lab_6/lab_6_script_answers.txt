@@ -1,0 +1,42 @@
+Michael Rogers
+
+1.  CREATE TABLE university_info(
+     University_Name TEXT,
+     Date_Established DATE,
+     Address TEXT,
+     Student_Population INTEGER,
+     Acceptance_Rate FLOAT
+    );
+
+2.  INSERT INTO university_info(University_Name, Date_Established, Address, Student_Population, Acceptance_Rate)
+    VALUES ('CU Boulder', to_date('1876', 'YYYY'), '1100 28th St. Boulder, CO 80303', 35000, 80);
+
+3.  SELECT name, major FROM football_players ORDER BY major;
+
+4.  SELECT name, rushing_yards FROM football_players WHERE rushing_yards > 70;
+
+5.  SELECT * FROM football_games WHERE visitor_name = 'Nebraska';
+
+6.  SELECT * FROM football_games WHERE home_score > visitor_score;
+
+7.  SELECT visitor_name, game_date FROM football_games WHERE game_date > '2018-08-01' and game_date < '2019-01-01';
+
+8.  // First line creates the view, second is the query.
+    CREATE VIEW wins AS
+    SELECT COUNT(*) FROM football_games WHERE home_score > visitor_score;
+
+9.  // First line creates the view, second is the query.
+    CREATE VIEW games AS
+    SELECT COUNT(*) FROM football_games;
+
+10. // Selects using the two views above, then casts each as a float in order to do the division.
+    SELECT CAST((SELECT * FROM wins) AS FLOAT)/CAST((SELECT * FROM games) AS FLOAT);
+
+11. // First line creates a view to be used in 12, the second uses the sub-query to search for Cedric
+    // using the ANY keyword.
+    CREATE VIEW cedric_games AS
+    SELECT COUNT(*) FROM football_games WHERE (SELECT id FROM football_players WHERE name = 'Cedric Vega') = ANY(players);
+
+12. // Uses the view in 11 to make the query more readable, then once again casts both queries to be
+    // floats for the division.
+    SELECT CAST((SELECT rushing_yards FROM football_players WHERE name = 'Cedric Vega') AS FLOAT)/CAST((SELECT * FROM cedric_games) AS FLOAT);
