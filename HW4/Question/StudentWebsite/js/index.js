@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var apiKey = "79f6190bc4ef781f728172e06a723b2f"; // Enter your API Key here
+    var apiKey = ""; // Enter your API Key here
     console.log(`state_info is: ${state_info}`) // Notice the templating here, use that when you form your url
 
 
